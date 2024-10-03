@@ -325,9 +325,11 @@ document.getElementById("menuCloseButton").onclick = () => {
 document.addEventListener("DOMContentLoaded", function () {
     const shortcuts = document.getElementById("shortcutsContainer");
     const aiToolsCont = document.getElementById("aiToolsCont");
+    const locationCont = document.getElementById("locationCont");
     const shortcutsCheckbox = document.getElementById("shortcutsCheckbox");
     const aiToolsCheckbox = document.getElementById("aiToolsCheckbox");
     const fahrenheitCheckbox = document.getElementById("fahrenheitCheckbox");
+    const hideLocationCheckbox = document.getElementById("hideLocationCheckbox");
 
     // Function to save checkbox state to localStorage
     function saveCheckboxState(key, checkbox) {
@@ -362,8 +364,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load and apply the saved checkbox states and display statuses
     loadCheckboxState("shortcutsCheckboxState", shortcutsCheckbox);
     loadCheckboxState("aiToolsCheckboxState", aiToolsCheckbox);
+    loadCheckboxState("hideLocationState", hideLocationCheckbox);
     loadDisplayStatus("shortcutsDisplayStatus", shortcuts);
     loadDisplayStatus("aiToolsDisplayStatus", aiToolsCont);
+    loadDisplayStatus("locationDisplayStatus", locationCont);
     loadCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
 
     // Add change event listeners for the checkboxes
@@ -391,6 +395,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fahrenheitCheckbox.addEventListener("change", function () {
         saveCheckboxState("fahrenheitCheckboxState", fahrenheitCheckbox);
+    });
+
+    hideLocationCheckbox.addEventListener("change", function () {
+        saveCheckboxState("hideLocationState", hideLocationCheckbox);
+        if (hideLocationCheckbox.checked) {
+            locationCont.style.display = "none";
+            saveDisplayStatus("locationDisplayStatus", "none");
+        } else {
+            locationCont.style.display = "flex";
+            saveDisplayStatus("locationDisplayStatus", "flex");
+        }
     });
 
 });
